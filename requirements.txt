@@ -1,0 +1,4 @@
+click==8.1.7
+gobject==0.1.0
+nptime==1.1
+tqdm==4.66.1
