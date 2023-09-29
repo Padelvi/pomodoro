@@ -1,4 +1,5 @@
 click==8.1.7
-gobject==0.1.0
 nptime==1.1
+py-notifier==0.5.0
+python-dotenv==1.0.0
 tqdm==4.66.1
