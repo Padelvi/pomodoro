@@ -1,5 +1,5 @@
 click==8.1.7
 nptime==1.1
+pipewire_python==0.2.3
 py-notifier==0.5.0
-python-dotenv==1.0.0
 tqdm==4.66.1
