@@ -8,7 +8,7 @@ from time import sleep
 
 # Local imports
 from .notify import notify, activate_pipewire, NotValidAudioException
-from .env import get_environ
+from .config import get_config
 
 def now() -> nptime:
     time = datetime.now().time()
@@ -54,9 +54,11 @@ def start(ctx: click.Context, cycles: int):
     pw, audio = activate_pipewire()
     for index in range(len(timer_cycle)):
         timer_type = timer_cycle[index]
+        ends = now() + deltas[timer_type][0]
         def cycle_name(timer: str):
             return "period" if timer == "work" else "break"
         click.echo(f"{timer_type.title()} {cycle_name(timer_type)}")
+        click.echo(f"Ends at {str(ends)}")
         for _ in tqdm(range(deltas[timer_type][0].seconds)):
             sleep(1)
         deltas[timer_type][1] += 1
@@ -69,4 +71,4 @@ def start(ctx: click.Context, cycles: int):
         click.echo()
 
 if __name__ == "__main__":
-    cli(obj=get_environ())
+    cli(obj=get_config())
