@@ -1,13 +1,18 @@
 # Lib imports
 import click
 from typing import Any, List
-from datetime import timedelta
+from datetime import datetime, timedelta
+from nptime import nptime
 from tqdm import tqdm
 from time import sleep
 
 # Local imports
-from .notify import notify
+from .notify import notify, activate_pipewire, NotValidAudioException
 from .env import get_environ
+
+def now() -> nptime:
+    time = datetime.now().time()
+    return nptime(hour=time.hour, minute=time.minute, second=time.second)
 
 @click.group()
 @click.option(
@@ -46,6 +51,7 @@ def start(ctx: click.Context, cycles: int):
         "long": [timedelta(minutes=ctx.obj["LONG_BREAK_MINUTES"]), 0],
     }
     timer_cycle = (*(cycles * ["work", "short"]), "long")
+    pw, audio = activate_pipewire()
     for index in range(len(timer_cycle)):
         timer_type = timer_cycle[index]
         def cycle_name(timer: str):
@@ -56,7 +62,9 @@ def start(ctx: click.Context, cycles: int):
         deltas[timer_type][1] += 1
         notify(
             f"{timer_type.title()} {cycle_name(timer_type)} number {deltas[timer_type][1]}",
-            f"Ended! Next you have a {timer_cycle[index + 1]} {cycle_name(timer_cycle[index + 1])}!"
+            f"Ended! Next you have a {timer_cycle[index + 1]} {cycle_name(timer_cycle[index + 1])}!",
+            pw,
+            audio
         )
         click.echo()
 
