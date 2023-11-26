@@ -10,7 +10,7 @@ class NotValidAudioException(Exception):
     def __init__(self, message="Not valid audio. No reason specified.") -> None:
         super().__init__(message)
 
-def activate_pipewire() -> tuple[Controller, str | None]:
+def activate_pipewire() -> tuple[Controller | None, str | None]:
     files = os.listdir("assets")
     filenames = tuple(map(lambda file: os.path.splitext(file)[0], files))
     valid_extensions = [".wav", ".mp3"]
@@ -23,7 +23,8 @@ def activate_pipewire() -> tuple[Controller, str | None]:
                 audio = files[filename_index]
                 if os.path.splitext(audio)[1] not in valid_extensions:
                     raise NotValidAudioException("Extension not valid for audio file.")
-    return Controller(), audio
+    pw = None if audio is None else Controller()
+    return pw, audio
 
 def notify(
     title: str,

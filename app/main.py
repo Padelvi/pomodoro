@@ -44,7 +44,7 @@ def cli(ctx: click.Context, notify: bool | None, sound: bool | None):
     help="Number of work-break cycles before the long break. Defaults to 4."
 )
 @click.pass_context
-def start(ctx: click.Context, cycles: int):
+def timer(ctx: click.Context, cycles: int):
     deltas: dict[str, List[Any]] = {
         "work": [timedelta(minutes=ctx.obj["WORK_MINUTES"]), 0],
         "short": [timedelta(minutes=ctx.obj["SHORT_BREAK_MINUTES"]), 0],
