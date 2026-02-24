@@ -2,9 +2,10 @@ from os import listdir
 import json
 
 FIELDS: dict[str, int | float] = {
-    "WORK_MINUTES": 25,
+    "WORK_MINUTES": 30,
     "SHORT_BREAK_MINUTES": 5,
     "LONG_BREAK_MINUTES": 30,
+    "CYCLES": 4,
     "NOTIFY": 1,
     "SOUND": 0,
     "VOLUME": 0.9,
@@ -33,3 +34,10 @@ def get_config(full_filepath: str = "config.json") -> dict[str, int | float]:
             if key not in config.keys():
                 config.update({key: default})
         return config
+
+def pass_config(config: dict):
+    for key in config.keys():
+        config[key] = int(config[key])
+    config["NOTIFY"] = bool(config["NOTIFY"])
+    config["SOUND"] = bool(config["SOUND"])
+    return config
