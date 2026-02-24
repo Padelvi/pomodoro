@@ -1,6 +1,8 @@
 # pomodoro
-A terminal (for now) app that manages your pomodoro timers.
+**ARCHIVED**: I do not plan to work on this project anymore, I do not have neither time nor need for it.
 
-This is a work in progress for now, but I just need to add a few details to finish this.
+A terminal ~~(for now)~~ app that manages your pomodoro timers.
 
-When I do, I'll plan to release this in pypi.
+~~This is a work in progress for now, but I just need to add a few details to finish this.~~
+
+~~When I do, I'll plan to release this in pypi.~~
